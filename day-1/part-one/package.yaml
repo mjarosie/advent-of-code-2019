@@ -1,0 +1,21 @@
+name:                part-one
+version:             0.1.0.0
+license:             BSD3
+author:              "mjarosie"
+
+extra-source-files:
+- README.md
+
+dependencies:
+- base >= 4.7 && < 5
+- bytestring == 0.10.8.2
+- http-conduit == 2.3.7.3
+
+executables:
+  calculate-fuel-requirements:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
