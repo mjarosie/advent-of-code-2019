@@ -1,0 +1,19 @@
+name:                part-two
+version:             0.1.0.0
+license:             BSD3
+author:              "mjarosie"
+
+extra-source-files:
+- README.md
+
+dependencies:
+- base >= 4.7 && < 5
+
+executables:
+  count-all-passwords:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
