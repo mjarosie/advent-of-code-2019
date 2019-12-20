@@ -37,7 +37,7 @@ main = do
     f <- readFile filename
     let rawInstructionsList = splitOn "," f
     result <- runIntcodeProgram rawInstructionsList
-    putStrLn "Intcode program finished!"
+    return ()
 
 runIntcodeProgram :: [String] -> IO ProgramContext
 runIntcodeProgram rawInstructionsList = runIntcodeProgram' initialProgramContext
@@ -79,7 +79,7 @@ invoke Instruction { operation = Multiply, parameters = params } ProgramContext 
     return ProgramContext {memory = newMemoryState, instructionPointer = ip + 4}
 invoke Instruction { operation = Input, parameters = params } ProgramContext {memory = xs, instructionPointer = ip} = do
     let resultIdx = value $ head params
-    result <- prompt "> "
+    result <- prompt 
     let newMemoryState = replaceAt resultIdx xs result
     return ProgramContext {memory = newMemoryState, instructionPointer = ip + 2}
 invoke Instruction { operation = Output, parameters = params } programContext@ProgramContext {memory = xs, instructionPointer = ip} = do
@@ -173,8 +173,7 @@ getNumberOfParameters JumpIfFalse   = 2
 getNumberOfParameters LessThan      = 3
 getNumberOfParameters Equals        = 3
 
-prompt :: String -> IO String
-prompt text = do
-    putStr text
+prompt :: IO String
+prompt = do
     SysIO.hFlush SysIO.stdout
     getLine
